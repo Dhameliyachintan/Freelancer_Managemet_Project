@@ -82,6 +82,9 @@ export default function PaymentList() {
           <h1 className="text-2xl font-bold mb-4 text-gray-700">
             Payment List
           </h1>
+          <h2 className="text-lg font-semibold mb-2">
+            Total Earnings: ${totalEarnings.toFixed(2)}
+          </h2>
           <>
             <div className="mb-6">
               <Bar
@@ -110,10 +113,8 @@ export default function PaymentList() {
             </div>
           </>
         </div>
-        <div className="flex flex-col gap-10">
-          <h2 className="text-lg font-semibold mb-2">
-            Total Earnings: ${totalEarnings.toFixed(2)}
-          </h2>
+        <div className="max-w-6xl mx-auto my-8 p-6 flex flex-col gap-10">
+         
           <table className="min-w-full border-collapse border border-gray-200">
             <thead className="bg-gray-200">
               <tr>
