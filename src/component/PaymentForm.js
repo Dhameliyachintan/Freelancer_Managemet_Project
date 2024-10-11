@@ -5,10 +5,11 @@ export default function PaymentForm() {
   const navigate = useNavigate();
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
   const [projectName, setProjectName] = useState("");
   const [category, setCategory] = useState("");
-  const [description, setDescription] = useState(""); 
+  const [description, setDescription] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -20,7 +21,9 @@ export default function PaymentForm() {
       !date ||
       !paymentMethod ||
       !projectName ||
-      !category
+      !category ||
+      !description ||
+      !endDate
     ) {
       return;
     }
@@ -32,6 +35,7 @@ export default function PaymentForm() {
       projectName,
       category,
       description,
+      endDate,
     };
 
     const existingPayments = JSON.parse(localStorage.getItem("payments")) || [];
@@ -47,7 +51,7 @@ export default function PaymentForm() {
     setPaymentMethod("");
     setProjectName("");
     setCategory("");
-    setDescription(""); 
+    setDescription("");
   };
 
   return (
@@ -104,6 +108,19 @@ export default function PaymentForm() {
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
+            End Date:
+          </label>
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
             Category:
           </label>
           <select
@@ -112,12 +129,11 @@ export default function PaymentForm() {
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           >
-            <option value="">Select a category</option>
-            <option value="Food">Food</option>
-            <option value="Bills">Bills</option>
-            <option value="Housing">Housing</option>
-            <option value="Leisure">Leisure</option>
-            <option value="Transport">Transport</option>
+            <option value="">Select a project category</option>
+            <option value="Development">Development</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Design">Design</option>
+            <option value="Research">Research</option>
           </select>
         </div>
 

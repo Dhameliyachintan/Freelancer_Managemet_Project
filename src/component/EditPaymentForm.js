@@ -7,9 +7,11 @@ export default function EditPaymentForm() {
   const [payment, setPayment] = useState(null);
   const [projectName, setProjectName] = useState("");
   const [date, setDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     const storedPayments = JSON.parse(localStorage.getItem("payments")) || [];
@@ -18,9 +20,11 @@ export default function EditPaymentForm() {
       setPayment(currentPayment);
       setProjectName(currentPayment.projectName);
       setDate(currentPayment.date);
+      setEndDate(currentPayment.endDate);
       setCategory(currentPayment.category);
       setAmount(currentPayment.amount);
       setPaymentMethod(currentPayment.paymentMethod);
+      setDescription(currentPayment.description);
     }
   }, [index]);
 
@@ -30,9 +34,11 @@ export default function EditPaymentForm() {
       ...payment,
       projectName,
       date,
+      endDate,
       category,
       amount: parseFloat(amount),
       paymentMethod,
+      description,
     };
 
     const storedPayments = JSON.parse(localStorage.getItem("payments")) || [];
@@ -69,12 +75,24 @@ export default function EditPaymentForm() {
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
-            Date:
+            Start Date:
           </label>
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            End Date:
+          </label>
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
             required
           />
@@ -89,12 +107,11 @@ export default function EditPaymentForm() {
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
             required
           >
-            <option value="">Select a category</option>
-            <option value="Food">Food</option>
-            <option value="Bills">Bills</option>
-            <option value="Housing">Housing</option>
-            <option value="Leisure">Leisure</option>
-            <option value="Transport">Transport</option>
+            <option value="">Select a project category</option>
+            <option value="Development">Development</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Design">Design</option>
+            <option value="Research">Research</option>
           </select>
         </div>
         <div className="mb-4">
@@ -126,6 +143,18 @@ export default function EditPaymentForm() {
             <option value="Cash">Cash</option>
             <option value="Bank Transfer">Bank Transfer</option>
           </select>
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Description:
+          </label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            rows="3"
+            placeholder="Add a description..."
+          />
         </div>
         <button
           type="submit"

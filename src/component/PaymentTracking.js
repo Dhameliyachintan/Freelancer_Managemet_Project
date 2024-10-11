@@ -10,6 +10,14 @@ export default function PaymentTracking() {
     }
   }, []);
 
+  const togglePaymentStatus = () => {
+    if (payment) {
+      const updatedPayment = { ...payment, completed: !payment.completed };
+      localStorage.setItem("selectedPayment", JSON.stringify(updatedPayment));
+      setPayment(updatedPayment);
+    }
+  };
+
   if (!payment) {
     return <p>No payment data available.</p>;
   }
@@ -40,10 +48,19 @@ export default function PaymentTracking() {
           </tr>
           <tr className="hover:bg-gray-100">
             <td className="border border-gray-300 p-2">Status</td>
-            <td className="border border-gray-300 p-2">{payment.completed ? "Active" : "Inactive"}</td>
+            <td className="border border-gray-300 p-2">{payment.completed ? "Paid" : "Unpaid"}</td>
           </tr>
         </tbody>
       </table>
+
+      <div className="mt-4">
+        <button
+          onClick={togglePaymentStatus}
+          className={`px-4 py-2 rounded ${payment.completed ? "bg-red-500 hover:bg-red-700" : "bg-green-500 hover:bg-green-700"} text-white`}
+        >
+          Mark as {payment.completed ? "Unpaid" : "Paid"}
+        </button>
+      </div>
     </div>
   );
 }

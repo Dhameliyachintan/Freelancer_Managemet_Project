@@ -76,29 +76,56 @@ export default function PaymentList() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto my-8 p-6 bg-white rounded-lg shadow-lg">
-      <h1 className="text-2xl font-bold mb-4 text-gray-700">Payment List</h1>
-
-      {payments.length > 0 ? (
-        <>
+    <>
+      <div>
+        <div className="max-w-5xl mx-auto my-8 p-6 bg-white rounded-lg shadow-lg">
+          <h1 className="text-2xl font-bold mb-4 text-gray-700">
+            Payment List
+          </h1>
+          <>
+            <div className="mb-6">
+              <Bar
+                data={chartData}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  scales: {
+                    x: {
+                      title: {
+                        display: true,
+                        text: "Categories",
+                      },
+                    },
+                    y: {
+                      title: {
+                        display: true,
+                        text: "Payment Amount ($)",
+                      },
+                      beginAtZero: true,
+                    },
+                  },
+                }}
+                style={{ height: "400px", width: "100%" }}
+              />
+            </div>
+          </>
+        </div>
+        <div className="flex flex-col gap-10">
           <h2 className="text-lg font-semibold mb-2">
             Total Earnings: ${totalEarnings.toFixed(2)}
           </h2>
-
-          <div className="mb-6">
-            <Bar data={chartData} />
-          </div>
-
           <table className="min-w-full border-collapse border border-gray-200">
             <thead className="bg-gray-200">
               <tr>
-                <th className="border border-gray-300 p-2 text-left">Status</th>
-                <th className="border border-gray-300 p-2 text-left">Project Name</th>
-                <th className="border border-gray-300 p-2 text-left">Date</th>
-                <th className="border border-gray-300 p-2 text-left">Category</th>
-                <th className="border border-gray-300 p-2 text-left">Payment Method</th>
-                <th className="border border-gray-300 p-2 text-left">Actions</th>
-                <th className="border border-gray-300 p-2 text-left">Payment Tracking</th>
+                <th className="border border-gray-300 p-2">Status</th>
+                <th className="border border-gray-300 p-2">Project Name</th>
+                <th className="border border-gray-300 p-2">Description</th>
+                <th className="border border-gray-300 p-2">Date</th>
+                <th className="border border-gray-300 p-2">End Date</th>{" "}
+                <th className="border border-gray-300 p-2">Category</th>
+                <th className="border border-gray-300 p-2">Payment Method</th>
+                <th className="border border-gray-300 p-2">Actions</th>
+                <th className="border border-gray-300 p-2">Payment Tracking</th>
               </tr>
             </thead>
             <tbody>
@@ -116,10 +143,24 @@ export default function PaymentList() {
                       {payment.completed ? "Active" : "Inactive"}
                     </button>
                   </td>
-                  <td className="border border-gray-300 p-2">{payment.projectName}</td>
-                  <td className="border border-gray-300 p-2">{new Date(payment.date).toLocaleDateString()}</td>
-                  <td className="border border-gray-300 p-2">{payment.category}</td>
-                  <td className="border border-gray-300 p-2">{payment.paymentMethod}</td>
+                  <td className="border border-gray-300 p-2">
+                    {payment.projectName}
+                  </td>
+                  <td className="border border-gray-300 p-2">
+                    {payment.description}
+                  </td>
+                  <td className="border border-gray-300 p-2">
+                    {new Date(payment.date).toLocaleDateString()}
+                  </td>
+                  <td className="border border-gray-300 p-2">
+                    {new Date(payment.endDate).toLocaleDateString()}
+                  </td>{" "}
+                  <td className="border border-gray-300 p-2">
+                    {payment.category}
+                  </td>
+                  <td className="border border-gray-300 p-2">
+                    {payment.paymentMethod}
+                  </td>
                   <td className="border border-gray-300 p-2">
                     <button
                       onClick={() => handleEdit(index)}
@@ -146,10 +187,8 @@ export default function PaymentList() {
               ))}
             </tbody>
           </table>
-        </>
-      ) : (
-        <p className="text-gray-500">No payment entries found.</p>
-      )}
-    </div>
+        </div>
+      </div>
+    </>
   );
 }
