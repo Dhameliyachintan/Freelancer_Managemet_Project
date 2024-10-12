@@ -33,6 +33,7 @@ export default function PaymentList() {
                 <th className="py-2 px-4 border-b">Date</th>
                 <th className="py-2 px-4 border-b">End Date</th>
                 <th className="py-2 px-4 border-b">Payment Method</th>
+                <th className="py-2 px-4 border-b">Amount</th>
                 <th className="py-2 px-4 border-b">Status</th>
               </tr>
             </thead>
@@ -47,6 +48,7 @@ export default function PaymentList() {
                     {new Date(payment.endDate).toLocaleDateString()}
                   </td>
                   <td className="py-2 px-4 border-b">{payment.paymentMethod}</td>
+                  <td className="py-2 px-4 border-b">{payment.amount}</td>
                   <td className="py-2 px-4 border-b">
                     <button
                       onClick={() => togglePaymentStatus(index)}
