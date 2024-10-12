@@ -25,6 +25,12 @@ const Navbar = () => {
             >
               Payment Form
             </Link>
+            <Link
+              to="/Paymentdata"
+              className="ml-4 px-3 py-2 text-sm font-medium text-black rounded hover:bg-gray-100"
+            >
+              Payment Data
+            </Link>
             {!isLoggedIn ? (
               <Link
                 to="/login"

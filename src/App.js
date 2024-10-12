@@ -7,7 +7,8 @@ import Navbar from "./component/Navbar";
 import PaymentList from "./component/PaymentList";
 import PaymentForm from "./component/PaymentForm";
 import EditPaymentForm from "./component/EditPaymentForm";
-import PaymentTracking from "./component/PaymentTracking";
+import PaymentTracking from "./component/PaymentData";
+import PaymentData from "./component/PaymentData";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
         <Route path="/paymentForm" element={<PaymentForm />} />
         <Route path="/editpaymentForm/:index" element={<EditPaymentForm />} />
         <Route path="/paymentList" element={<PaymentList />} />
-        <Route path="/PaymentTracking/:index" element={<PaymentTracking />} />
+        <Route path="/Paymentdata" element={<PaymentData />} />
       </Routes>
     </div>
   );

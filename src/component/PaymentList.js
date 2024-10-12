@@ -69,127 +69,73 @@ export default function PaymentList() {
     navigate(`/editpaymentForm/${index}`);
   };
 
-  const handlepaymenttracking = (index) => {
-    const paymentData = payments[index];
-    localStorage.setItem("selectedPayment", JSON.stringify(paymentData));
-    navigate(`/PaymentTracking/${index}`);
-  };
-
   return (
-    <>
-      <div>
-        <div className="max-w-5xl mx-auto my-8 p-6 bg-white rounded-lg shadow-lg">
-          <h1 className="text-2xl font-bold mb-4 text-gray-700">
-            Payment List
-          </h1>
-          <h2 className="text-lg font-semibold mb-2">
-            Total Earnings: ${totalEarnings.toFixed(2)}
-          </h2>
-          <>
-            <div className="mb-6">
-              <Bar
-                data={chartData}
-                options={{
-                  responsive: true,
-                  maintainAspectRatio: false,
-                  scales: {
-                    x: {
-                      title: {
-                        display: true,
-                        text: "Categories",
-                      },
-                    },
-                    y: {
-                      title: {
-                        display: true,
-                        text: "Payment Amount ($)",
-                      },
-                      beginAtZero: true,
-                    },
+    <div>
+      <div className="max-w-5xl mx-auto my-8 p-6 bg-white rounded-lg shadow-lg">
+        <h1 className="text-2xl font-bold mb-4 text-gray-700">Payment List</h1>
+        <h2 className="text-lg font-semibold mb-2">
+          Total Earnings: ${totalEarnings.toFixed(2)}
+        </h2>
+        <div className="mb-6">
+          <Bar
+            data={chartData}
+            options={{
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                x: {
+                  title: {
+                    display: true,
+                    text: "Categories",
                   },
-                }}
-                style={{ height: "400px", width: "100%" }}
-              />
-            </div>
-          </>
-        </div>
-        <div className="max-w-6xl mx-auto my-8 p-6 flex flex-col gap-10">
-         
-          <table className="min-w-full border-collapse border border-gray-200">
-            <thead className="bg-gray-200">
-              <tr>
-                <th className="border border-gray-300 p-2">Status</th>
-                <th className="border border-gray-300 p-2">Project Name</th>
-                <th className="border border-gray-300 p-2">Description</th>
-                <th className="border border-gray-300 p-2">Date</th>
-                <th className="border border-gray-300 p-2">End Date</th>{" "}
-                <th className="border border-gray-300 p-2">Category</th>
-                <th className="border border-gray-300 p-2">Payment Method</th>
-                <th className="border border-gray-300 p-2">Actions</th>
-                <th className="border border-gray-300 p-2">Payment Tracking</th>
-              </tr>
-            </thead>
-            <tbody>
-              {payments.map((payment, index) => (
-                <tr key={index} className="hover:bg-gray-100">
-                  <td className="border border-gray-300 p-2">
-                    <button
-                      onClick={() => handleButtonClick(index)}
-                      className={`text-white px-4 py-1 rounded ${
-                        payment.completed
-                          ? "bg-red-500 hover:bg-red-700"
-                          : "bg-green-500 hover:bg-green-700"
-                      }`}
-                    >
-                      {payment.completed ? "Active" : "Inactive"}
-                    </button>
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    {payment.projectName}
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    {payment.description}
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    {new Date(payment.date).toLocaleDateString()}
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    {new Date(payment.endDate).toLocaleDateString()}
-                  </td>{" "}
-                  <td className="border border-gray-300 p-2">
-                    {payment.category}
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    {payment.paymentMethod}
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    <button
-                      onClick={() => handleEdit(index)}
-                      className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-700 mr-2"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(index)}
-                      className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    <button
-                      onClick={() => handlepaymenttracking(index)}
-                      className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-700"
-                    >
-                      Track Payment
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                },
+                y: {
+                  title: {
+                    display: true,
+                    text: "Payment Amount ($)",
+                  },
+                  beginAtZero: true,
+                },
+              },
+            }}
+            style={{ height: "400px", width: "100%" }}
+          />
         </div>
       </div>
-    </>
+      <div className="max-w-6xl mx-auto my-8 p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {payments.map((payment, index) => (
+          <div key={index} className="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow">
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-lg font-semibold">{payment.projectName}</h3>
+              <button
+                onClick={() => handleButtonClick(index)}
+                className={`text-white px-3 py-1 rounded ${payment.completed ? "bg-red-500 hover:bg-red-700" : "bg-green-500 hover:bg-green-700"}`}
+              >
+                {payment.completed ? "Active" : "Inactive"}
+              </button>
+            </div>
+            <p className="text-gray-700">{payment.description}</p>
+            <p className="text-gray-600">Date: {new Date(payment.date).toLocaleDateString()}</p>
+            <p className="text-gray-600">End Date: {new Date(payment.endDate).toLocaleDateString()}</p>
+            <p className="text-gray-600">Category: {payment.category}</p>
+            <p className="text-gray-600">Payment Method: {payment.paymentMethod}</p>
+            <div className="mt-4 flex justify-between">
+              <button
+                onClick={() => handleEdit(index)}
+                className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-700"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDelete(index)}
+                className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
