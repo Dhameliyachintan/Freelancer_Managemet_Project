@@ -1,15 +1,8 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "./form/Authprovider";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const navigate = useNavigate();
-  const { isLoggedIn, logout } = useAuth();
-
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
+ 
 
   return (
     <nav className="bg-white shadow">
@@ -31,21 +24,6 @@ const Navbar = () => {
             >
               Payment Data
             </Link>
-            {!isLoggedIn ? (
-              <Link
-                to="/login"
-                className="ml-4 px-3 py-2 text-sm font-medium text-black rounded hover:bg-gray-100"
-              >
-                Login
-              </Link>
-            ) : (
-              <button
-                onClick={handleLogout}
-                className="ml-4 px-3 py-2 text-sm font-medium text-black rounded hover:bg-gray-100"
-              >
-                Logout
-              </button>
-            )}
           </div>
         </div>
       </div>
