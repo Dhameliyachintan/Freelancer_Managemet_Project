@@ -114,11 +114,11 @@ export default function PaymentList() {
                 {payment.completed ? "Active" : "Inactive"}
               </button>
             </div>
-            <p className="text-gray-700">{payment.description}</p>
-            <p className="text-gray-600">Date: {new Date(payment.date).toLocaleDateString()}</p>
-            <p className="text-gray-600">End Date: {new Date(payment.endDate).toLocaleDateString()}</p>
-            <p className="text-gray-600">Category: {payment.category}</p>
-            <p className="text-gray-600">Payment Method: {payment.paymentMethod}</p>
+            <p className="text-gray-700"><strong> description:- </strong> {payment.description}</p>
+            <p className="text-gray-600"><strong>Date:- </strong>  {new Date(payment.date).toLocaleDateString()}</p>
+            <p className="text-gray-600"><strong>End Date:- </strong>  {new Date(payment.endDate).toLocaleDateString()}</p>
+            <p className="text-gray-600"><strong>Category:- </strong>  {payment.category}</p>
+            <p className="text-gray-600"><strong>Payment Method:- </strong>  {payment.paymentMethod}</p>
             <div className="mt-4 flex justify-between">
               <button
                 onClick={() => handleEdit(index)}
